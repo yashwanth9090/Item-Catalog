@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/publicitemcatalog.css') }}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>Item Catalog</title>
+</head>
+<body>
+<header class="header-container">
+    <h1 class="catalog-app"><a href='{{url_for('categories')}}'>Catalog App</a></h1>
+    <div class="login"><a href='{{url_for('login')}}'><button class="w3-button w3-red" type="button">Log In</button></a></div>
+</header>
+<!--MESSAGE FLASHING EXAMPLE -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+
+<ul>
+{% for message in messages %}
+  <li><strong>{{message}}</strong></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+<div class="category-list">
+    <div class="left-div line">
+        <h4 class="subheading"><strong>Categories</strong></h4>
+        {% for i in categories %}
+        <ul>
+            <li style="color: red"><a href='{{url_for('categoryItems',category_id = i.id)}}'>{{i.name}}</a></li>
+        </ul>
+        {% endfor %}
+    </div>
+    <div class="right-div">
+    	<h4 class="subheading-items"><strong>Latest Items</strong></h4>
+        {% for itemId in recentItems%}
+        <ul style="clear:both">
+            <li>{{itemId.name}} <i>({{itemId.category.name}})</i></li>
+        </ul>
+        {%endfor%}
+    </div>
+	<div style="clear:both"></div>
+</div>
+
+</body>
+</html>

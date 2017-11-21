@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>Item Catalog</title>
+<style>
+* { 
+   font-family: 'Source Sans Pro', sans-serif;
+   box-sizing: border-box;
+}
+.header-container {
+	display:flex;
+	justify-content: space-between;
+	position:relative;
+	width:100%;
+	background-color:#30C;
+	border: 1px solid black;
+}
+.catalog-app{
+	margin-left:10%;
+	display:flex;
+	justify-content:flex-start;
+	color:#FFF;
+}
+.description{
+	margin-top:10%;
+	margin-left:10%;
+	margin-right:10%;
+	margin-bottom:10%;
+	padding-left:0;
+	padding-top:0;
+	width:80%;
+	padding-bottom:0%;
+	border: 1px solid black;
+	background-color:#FFF;
+}
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+	background-color:#CCC;
+}
+.subheading{
+    padding-left: 3%;
+  
+}
+
+.content{
+    padding-left: 3%;
+    padding-right: 3%;
+ 
+}
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.submit-button{
+	padding-left: 3%;
+	padding-bottom:2%;
+}
+.logout {
+	padding-top:1.5%;
+	padding-right:2%;
+    margin-left: auto;
+    
+}
+
+</style>
+</head>
+<body>
+<header class="header-container">
+<h1 class="catalog-app"><a href='{{url_for('categories')}}'>Catalog App</a></h1>
+<div class="logout"><a href='{{url_for('gdisconnect')}}'><button class="w3-button w3-red" type="button">Log Out</button></a></div>
+</header>
+<div class="description">
+    <h4 class="subheading"><strong>Delete Item:</strong></h4>
+    <p class="content">Are you sure you want to delete?</p>
+    <form action="{{url_for('deleteItem',category_id = category_id, item_id = item_id)}}", method="post">
+    <div class="submit-button"><input type="submit" value="Delete"></div>
+    </form>
+</div>
+
+</body>
+</html>

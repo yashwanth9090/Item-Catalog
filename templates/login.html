@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="//apis.google.com/js/platform.js?onload=start"> </script>
+<title>Item Catalog</title>
+<style>
+* { 
+   font-family: 'Source Sans Pro', sans-serif;
+   box-sizing: border-box;
+}
+.header-container {
+	display:flex;
+	justify-content: space-between;
+	position:relative;
+	width:100%;
+	background-color:#30C;
+	border: 1px solid black;
+}
+.catalog-app{
+	margin-left:10%;
+	display:flex;
+	justify-content:flex-start;
+	color:#FFF;
+}
+.login {
+	padding-top:1.5%;
+	padding-right:8%;
+   flex-direction:column;
+   justify-content: flex-end;
+}
+.login-form{
+	margin-top:10%;
+	margin-left:10%;
+	margin-right:10%;
+	margin-bottom:10%;
+	padding-left:0;
+	padding-top:0;
+	width:80%;
+	padding-bottom:0%;
+	border: 1px solid black;
+	background-color:#FFF;
+}
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+	background-color:#CCC;
+}
+.subheading{
+    padding-left: 3%;
+  
+}
+.buttons{
+    display: flex;
+}
+.login-button{
+    display: inline-block;
+    padding-left: 3%;
+    padding-bottom: 2%;
+    padding-top: 2.3%;
+}
+.gsigninButton {
+    display: inline-block;
+    padding-left: 3%;
+    padding-top: 2%;
+   
+}
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+</style>
+</head>
+<body>
+<header class="header-container">
+<h1 class="catalog-app"><a href='{{url_for('categories')}}'>Catalog App</a></h1>
+</header>
+<!--MESSAGE FLASHING EXAMPLE -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+
+<ul>
+{% for message in messages %}
+  <li><strong>{{message}}</strong></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+<div class="login-form">
+    <h3 class="subheading"><strong>Login</strong></h3>
+    <form action="{{url_for('login')}}" method='post'>
+    <div class="subheading">Email: <br><input type="text" name="Email" placeholder="Email"><br></div>
+    <div class="buttons">
+    <div class="login-button"><input type="submit" value="Login"></div>
+    <div class="gsigninButton">
+          <span class="g-signin"
+            data-scope="openid email"
+            data-clientid="362636957643-qqdtqkqivu3u82aofbdseb0n2e1mg3pl.apps.googleusercontent.com"
+            data-redirecturi="postmessage"
+            data-accesstype="offline"
+            data-cookiepolicy="single_host_origin"
+            data-callback="signInCallback"
+            data-approvalprompt="force">
+          </span>
+    </div>
+    </div>
+    </form>
+</div>
+<div id="result"></div>
+
+<script>
+function signInCallback(authResult) {
+  if (authResult['code']) {
+    // Hide the sign-in button now that the user is authorized
+    $('#signinButton').attr('style', 'display: none');
+    // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main Item catalog page
+    $.ajax({
+      type: 'POST',
+      url: '/gconnect?state={{STATE}}',
+      processData: false,
+      data: authResult['code'],
+      contentType: 'application/octet-stream; charset=utf-8',
+      success: function(result) {
+        // Handle or verify the server response if necessary.
+        if (result) {
+          $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+         setTimeout(function() {
+          window.location.href = "/categories";
+         }, 4000);
+          
+      } else if (authResult['error']) {
+    console.log('There was an error: ' + authResult['error']);
+  } else {
+        $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+         }
+      }
+      
+  }); } }
+</script>
+</body>
+</html>

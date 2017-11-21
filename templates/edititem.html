@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/edititem.css') }}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>Item Catalog</title>
+</head>
+<body>
+<header class="header-container">
+<h1 class="catalog-app"><a href='{{url_for('categories')}}'>Catalog App</a></h1>
+    <div class="logout"><a href='{{url_for('gdisconnect')}}'><button class="w3-button w3-red" type="button">Log Out</button></a></div>
+</header>
+<div class="additem">
+    <h3 class="subheading"><strong>Edit Item</strong></h3>
+    <form action="{{url_for('editItem',category_id = category_id,item_id=item_id)}}" method='post'>
+    <div class="subheading">Title: <br><input type="text" name="Title" value="{{item.name}}"><br></div>
+    <div class="additem-form">Description:<br> <input type="text" name="Description" value="{{item.description}}"><br></div>
+    <div class="additem-form">Category:
+    <br>
+    <select>
+    	<br>
+      <option value="select">{{category.name}}</option>
+    </select></div>
+    <br>
+    <div class="submit-button"><input type="submit" value="Submit"></div>
+    </form>
+</div>
+
+</body>
+</html>
