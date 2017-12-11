@@ -58,6 +58,6 @@ class CategoryItem(Base):
             'categoryId':self.category_id
         }
 
-create_engine("postgresql://catalog:topsecret@localhost/catalogdb")
+engine = create_engine("postgresql://catalog:topsecret@localhost/catalogdb")
 
 Base.metadata.create_all(engine)
