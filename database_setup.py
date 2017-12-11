@@ -58,6 +58,6 @@ class CategoryItem(Base):
             'categoryId':self.category_id
         }
 
-engine = create_engine('sqlite:///itemcatelogwithusers.db')
+create_engine("postgresql://catalog:topsecret@localhost/catalogdb")
 
 Base.metadata.create_all(engine)
