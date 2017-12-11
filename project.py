@@ -34,7 +34,7 @@ CLIENT_ID = json.loads(
 APPLICATION_NAME = "Item Catalog Application"
 
 # Connect to Database
-engine = create_engine('sqlite:///itemcatelogwithusers.db')
+engine = create_engine("postgresql://catalog:topsecret@localhost/catalogdb")
 Base.metadata.bind = engine
 # Creating session
 DBSession = sessionmaker(bind=engine)
