@@ -363,8 +363,3 @@ def deleteItem(category_id, item_id):
 def catalogJSON():
     items = session.query(CategoryItem).all()
     return jsonify(CategoryItems=[i.serialize for i in items])
-
-if __name__ == '__main__':
-    app.secret_key = 'super_secret_key'
-    app.run(host='0.0.0.0', port=5000)
-    app.debug = True
